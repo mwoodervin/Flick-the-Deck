@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+.primary {
+    color: #1779ba;
+}
+
+.bg-primary {
+    background-color: #1779ba;
+    color: white;
+}
+
+.white {
+    color: white;
+}
+
+.secondary {
+    columns: #767676;
+}
+
+.success {
+    color: #3adb76;
+}
+
+.warning {
+    color: #ffae00;
+}
+
+.alert {
+    color: #cc4b37;
+}
+
+.center-icons {
+    text-align: center;
+}
+
+.modal {
+    display: none;
+}
+  
+.modal-content {
+    text-align: center;
+    font-weight: bold;
+}
+
+.close {
+    color: #cc4b37;
+}
+
+.btnWidth {
+    width: 50%;
+}
+.noDisplay {
+    display: none;
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+footer a:hover {
+    color: #ffae00;
+}
+
+.border-right {
+    border-right: 1px solid white;
+}
+
+/* Cited:  https://materializecss.com/footer.html */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
