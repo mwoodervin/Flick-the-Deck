@@ -1,0 +1,74 @@
+$(document).ready(function () {
+
+    // Define Variables
+    const runtime = document.querySelector("#runtime");
+    
+    const ratedR = document.querySelector("#ratedR");
+    const ratedPG13 = document.querySelector("#ratedPG13");
+    const ratedPG = document.querySelector("#ratedPG");
+    const ratedG = document.querySelector("#ratedG");
+    
+    const action = document.querySelector("#action");
+    const drama = document.querySelector("#drama");
+    const comedy = document.querySelector("#comedy");
+    const horror = document.querySelector("#horror");
+    const kids = document.querySelector("#kids");
+    
+    const pickCardBtn = document.querySelector("#pickCardBtn");
+    const drawAgainBtn = document.querySelector("#drawAgainBtn");
+    
+    const runtimeModal = document.querySelector("#runtimeModal");
+    const ratingModal = document.querySelector("#ratingModal");
+    const genreModal = document.querySelector("#genreModal");
+    const closeBtn1 = document.querySelector("#close1");
+    const closeBtn2 = document.querySelector("#close2");
+    const closeBtn3 = document.querySelector("#close3");
+    
+    const movieHeader = document.querySelector("#movie-header");
+    const movieGrid = document.querySelector("#movie-grid");
+    const result1 = document.querySelector("#result1");
+    const result2 = document.querySelector("#result2");
+    const result3 = document.querySelector("#result3");
+    const result4 = document.querySelector("#result4");
+    
+    // Validate Rating & Genre Selection
+    pickCardBtn.onclick = function () {
+        let runtimeLength = document.querySelector("#runtime").value;
+        if (runtimeLength < 60 || runtimeLength > 240 || isNaN(runtimeLength)) {
+            runtimeModal.style.display = "block";
+        } else if (!ratedR.checked && !ratedPG13.checked && !ratedPG.checked && !ratedG.checked) {
+            ratingModal.style.display = "block";
+        } else if (!action.checked && !drama.checked && !comedy.checked && !horror.checked && !kids.checked) {
+            genreModal.style.display = "block";
+        } else runMovieSelection();
+    };
+
+    // When the user clicks on either close button (x), close the modal
+    closeBtn1.onclick = function () {
+        runtimeModal.style.display = "none";
+    }
+    closeBtn2.onclick = function () {
+        ratingModal.style.display = "none";
+    }
+    closeBtn3.onclick = function () {
+        genreModal.style.display = "none";
+    }
+
+    // Main function to create movie selection
+    // 
+    function runMovieSelection() {
+        pickCardBtn.style.display = "none";
+        drawAgainBtn.style.display = "block";
+        movieHeader.style.display = "block";
+        movieGrid.style.display = "block";
+    }
+
+    // WHO's READY FOR SOME JAVASCRIPT?!?!
+
+
+
+
+
+
+
+});
