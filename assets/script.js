@@ -14,6 +14,7 @@ $(document).ready(function () {
     const horror = document.querySelector("#horror");
     const kids = document.querySelector("#kids");
 
+    const shuffleBtn = document.querySelector("#shuffleBtn");
     const pickCardBtn = document.querySelector("#pickCardBtn");
     const drawAgainBtn = document.querySelector("#drawAgainBtn");
 
