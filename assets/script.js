@@ -65,6 +65,29 @@ $(document).ready(function () {
 
     // WHO's READY FOR SOME JAVASCRIPT?!?!
 
+    // query the card API - shuffle
+
+    // query the card API - draw 4 cards
+
+    // query movie API for genre IDs
+    // https://api.themoviedb.org/3/genre/movie/list?api_key=8ae6662de0624eaf409751a739208381&language=en-US
+
+    // gather the movie parameters
+
+    // build the movie queryURL
+
+    // query movie API according to the parameters
+
+    // show the 4 cards
+
+    // animate the 4 cards to "flip" and reveal the 4 movies
+
+
+
+
+// THIS IS WHERE I AM TRYING TO SORT OUT HOW TO QUERY THE 
+// MOVIE API ... YOU CAN MOSTLY IGNORE THIS FOR NOW. :-)
+
     // this is the URL to query movie API based on criteria
     let queryURL = "http://api.themoviedb.org/3/discover/movie?";
 
@@ -107,9 +130,9 @@ return queryURL + $.param(queryParams);
 
 function showMovies(movieResults) {
 
-    // get from input the number of cards to draw/movies to display - if we are doing this
-    // in html file, this would be an input with id="card-count"
-    const numMovies = $("#card-count").val();
+    // set the number of cards/movies at 4
+    const numMovies = 4;
+
 
     console.log(movieResults);
     console.log("---------------------------------");
