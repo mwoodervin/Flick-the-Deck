@@ -32,6 +32,13 @@ $(document).ready(function () {
     const result3 = document.querySelector("#result3");
     const result4 = document.querySelector("#result4");
 
+    // Shuffles the deck of cards
+    shuffleBtn.onclick = function () {
+        shuffleBtn.style.display = "none";
+        pickCardBtn.style.display = "block";
+        shuffleCards ();
+    }
+    
     // Validate Rating & Genre Selection
     pickCardBtn.onclick = function () {
         let runtimeLength = document.querySelector("#runtime").value;
