@@ -36,6 +36,9 @@ $(document).ready(function () {
     shuffleBtn.onclick = function () {
         shuffleBtn.style.display = "none";
         pickCardBtn.style.display = "block";
+        $("#runtimeBlock").show();
+        $("#ratingBlock").css("display", "block");
+        $("#genreBlock").css("display", "block");
         shuffleCards ();
     }
     
