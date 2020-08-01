@@ -70,6 +70,22 @@ $(document).ready(function () {
         movieHeader.style.display = "block";
         movieGrid.style.display = "block";
     }
+    // Shuffle the Cards API
+    $.ajax({
+        url:"https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+        method:"GET"
+    })
+
+    // Draw a Card API
+    $.ajax({
+        url:"https://deckofcardsapi.com/api/deck/ktd6e7ba6icz/draw/?count=4",
+        method:"GET"
+    })
+
+    .then(function(drawcard){
+        console.log(drawcard)
+    })
+
 
     // WHO's READY FOR SOME JAVASCRIPT?!?!
 
@@ -126,15 +142,15 @@ $(document).ready(function () {
     // have to include country in order to get certification info
     queryParams.certification_country = "US";
 
-    queryParams.certification = $(#)
+    queryParams.certification = $("#")
         .val();
 
     // log the URL so we can see it and troubleshoot
     // took this code from the NYT class exersize ... not sure how it works
-    console.log("---------------\nURL: ") + queryURL + "n---------------");
+    console.log("---------------\nURL: " + queryURL + "n---------------");
 console.log(queryURL = $.param(queryParams));
 return queryURL + $.param(queryParams);
-}
+
 
 function showMovies(movieResults) {
 
