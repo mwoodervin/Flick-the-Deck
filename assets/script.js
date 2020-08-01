@@ -84,6 +84,8 @@ $(document).ready(function () {
 
     .then(function(drawcard){
         console.log(drawcard)
+
+
     })
 
 
@@ -112,9 +114,11 @@ $(document).ready(function () {
 // THIS IS WHERE I AM TRYING TO SORT OUT HOW TO QUERY THE 
 // MOVIE API ... YOU CAN MOSTLY IGNORE THIS FOR NOW. :-)
 
-    // this is the URL to query movie API based on criteria
-    let queryURL = "http://api.themoviedb.org/3/discover/movie?";
 
+    // this is the URL to query movie API based on criteria
+    let queryURL = "http://api.themoviedb.org/3/discover/movie?" + apiKey + "&certification_country=US&certification=" + ;
+    let apiKey = "8ae6662de0624eaf409751a739208381";
+    let ratingInput = $("")
     // begin building an object to contain our API call's query parameters
     // set the API key
     let queryParams = { "api-key": "8ae6662de0624eaf409751a739208381" };
