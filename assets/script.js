@@ -80,7 +80,7 @@ $(document).ready(function () {
 
             .then(function (getid) {
                 var cardid = getid.deck_id;
-                console.log(cardid);
+                // console.log(cardid);
 
 
                 // Draw a Card API
@@ -90,7 +90,7 @@ $(document).ready(function () {
                 })
 
                     .then(function (drawcard) {
-                        console.log(drawcard)
+                        // console.log(drawcard)
                         cardHolder.each(function (choice) {
                             const _this = $(this);
                             _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
@@ -128,19 +128,25 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (genres) {
-                console.log(genres);
+                // console.log(genres);
 
-                // let queryURL = `http://api.themoviedb.org/3/discover/movie?${apiKey}&certification_country=US&certification=`;
+                let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US`;
 
-                // // get information from the inputs - need more here - maybe this is a separate funciton?
-                // let certifications = "";
-                // $(".certifications").forEach(function (elem) {
-                //     if (val) certifications += "," + val
-                //     //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
-                //     queryURL += "certification=" + certifications;
-        
-                // })
-                // // build the queryURL - maybe this is a separate function?
+                // get information from the inputs - need more here - maybe this is a separate funciton?
+                let certifications = "";
+                console.log(ratedR.checked);
+                $(".certifications").each(function(elem) {
+                    if (ratedR.checked) {
+                        certifications += ",R"
+                        console.log(certifications);
+                        elem ++
+                    }    
+                    //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
+                    queryURL += "&certification=" + certifications.slice(1);
+                    console.log(queryURL);
+                })
+
+                // build the queryURL - maybe this is a separate function?
                 // if (runtime) queryURL += `&certification=${runtime}`;
                 // if (val) queryURL += `&certification=${val}`;
                 // if (val) queryURL += `&certification=${val}`;
@@ -153,7 +159,7 @@ $(document).ready(function () {
                     method: "GET"
                 })
                     .then(function (moviedata) {
-                        console.log(moviedata);
+                        // console.log(moviedata);
                     });
             });
 
