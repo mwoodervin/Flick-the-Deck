@@ -39,11 +39,11 @@ $(document).ready(function () {
         $("#runtimeBlock").show();
         $("#ratingBlock").css("display", "block");
         $("#genreBlock").css("display", "block");
-        shuffleCards ();
     }
-    
+
     // Validate Rating & Genre Selection
     pickCardBtn.onclick = function () {
+        shuffleCards();
         let runtimeLength = document.querySelector("#runtime").value;
         if (runtimeLength < 60 || runtimeLength > 240 || isNaN(runtimeLength)) {
             runtimeModal.style.display = "block";
@@ -74,22 +74,38 @@ $(document).ready(function () {
         movieGrid.style.display = "block";
     }
     // Shuffle the Cards API
-    $.ajax({
-        url:"https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
-        method:"GET"
-    })
-
-    // Draw a Card API
-    $.ajax({
-        url:"https://deckofcardsapi.com/api/deck/ktd6e7ba6icz/draw/?count=4",
-        method:"GET"
-    })
-
-    .then(function(drawcard){
-        console.log(drawcard)
-    })
+    const cardHolder = $(".cardHolder");
+    function shuffleCards() {
 
 
+        $.ajax({
+            url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+            method: "GET"
+        })
+
+            .then(function (getid) {
+                var cardid = getid.deck_id;
+                console.log(cardid);
+
+
+                // Draw a Card API
+                $.ajax({
+                    url: "https://deckofcardsapi.com/api/deck/" + cardid + "/draw/?count=4",
+                    method: "GET"
+                })
+
+                    .then(function (drawcard) {
+                        console.log(drawcard)
+                        cardHolder.each(function(choice){
+                            const _this = $(this);
+                            _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
+                            choice++
+                        })
+                    })
+
+            })
+
+    }
     // WHO's READY FOR SOME JAVASCRIPT?!?!
 
     // query the card API - shuffle
@@ -112,8 +128,8 @@ $(document).ready(function () {
 
 
 
-// THIS IS WHERE I AM TRYING TO SORT OUT HOW TO QUERY THE 
-// MOVIE API ... YOU CAN MOSTLY IGNORE THIS FOR NOW. :-)
+    // THIS IS WHERE I AM TRYING TO SORT OUT HOW TO QUERY THE 
+    // MOVIE API ... YOU CAN MOSTLY IGNORE THIS FOR NOW. :-)
 
     // this is the URL to query movie API based on criteria
     let queryURL = "http://api.themoviedb.org/3/discover/movie?";
@@ -151,59 +167,59 @@ $(document).ready(function () {
     // log the URL so we can see it and troubleshoot
     // took this code from the NYT class exersize ... not sure how it works
     console.log("---------------\nURL: " + queryURL + "n---------------");
-console.log(queryURL = $.param(queryParams));
-return queryURL + $.param(queryParams);
+    console.log(queryURL = $.param(queryParams));
+    return queryURL + $.param(queryParams);
 
 
-function showMovies(movieResults) {
+    function showMovies(movieResults) {
 
-    // set the number of cards/movies at 4
-    const numMovies = 4;
+        // set the number of cards/movies at 4
+        const numMovies = 4;
 
 
-    console.log(movieResults);
-    console.log("---------------------------------");
+        console.log(movieResults);
+        console.log("---------------------------------");
 
-    // loop through the results and build elements for the defined number of movies
-    for (i = 0; i < numMovies; i++) {
+        // loop through the results and build elements for the defined number of movies
+        for (i = 0; i < numMovies; i++) {
 
-        let movieOptions = movieResults.results[i];
+            let movieOptions = movieResults.results[i];
 
-        // increase the articleCount (track article number starting at 1)
-        let movieCount = i + 1;
+            // increase the articleCount (track article number starting at 1)
+            let movieCount = i + 1;
 
-        // create area where results will be displayed - is this already done?
+            // create area where results will be displayed - is this already done?
 
-        // use movieOptions.title for a title
-        // use movieOptions.overview for a description if we want to
-        // use movieOptions.poster_path for movie poster
+            // use movieOptions.title for a title
+            // use movieOptions.overview for a description if we want to
+            // use movieOptions.poster_path for movie poster
+        }
     }
-}
 
-// CLICK EVENT TO GET MOVIES
-$("#pickCardButton").on("click", function (event) {
+    // CLICK EVENT TO GET MOVIES
+    $("#pickCardButton").on("click", function (event) {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    // empty the area where prior movies were displayed, if any
-    clear();
+        // empty the area where prior movies were displayed, if any
+        clear();
 
-    // build the query URL for the ajax request to the movie API
-    let queryURL = buildQueryURL();
+        // build the query URL for the ajax request to the movie API
+        let queryURL = buildQueryURL();
 
-    // make request to the API 
-    // the data then gets passed as an argument to the showMoview function
-    $.ajax({
-        url: queryURL,
-        method: "GET"
+        // make request to the API 
+        // the data then gets passed as an argument to the showMoview function
+        $.ajax({
+            url: queryURL,
+            method: "GET"
 
-    }).then(showMovies);
+        }).then(showMovies);
 
-});
-
+    });
 
 
-    
+
+
 
 
 
