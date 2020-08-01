@@ -67,12 +67,7 @@ $(document).ready(function () {
 
     // Main function to create movie selection
     // 
-    function runMovieSelection() {
-        pickCardBtn.style.display = "none";
-        drawAgainBtn.style.display = "block";
-        movieHeader.style.display = "block";
-        movieGrid.style.display = "block";
-    }
+
     // Shuffle the Cards API
     const cardHolder = $(".cardHolder");
     function shuffleCards() {
@@ -96,7 +91,7 @@ $(document).ready(function () {
 
                     .then(function (drawcard) {
                         console.log(drawcard)
-                        cardHolder.each(function(choice){
+                        cardHolder.each(function (choice) {
                             const _this = $(this);
                             _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
                             choice++
@@ -106,129 +101,70 @@ $(document).ready(function () {
             })
 
     }
-    // WHO's READY FOR SOME JAVASCRIPT?!?!
-
-    // query the card API - shuffle
-
-    // query the card API - draw 4 cards
-
     // query movie API for genre IDs
-    // https://api.themoviedb.org/3/genre/movie/list?api_key=8ae6662de0624eaf409751a739208381&language=en-US
 
     // gather the movie parameters
 
     // build the movie queryURL
 
-    // query movie API according to the parameters
+    // query the movie API
 
-    // show the 4 cards
-
-    // animate the 4 cards to "flip" and reveal the 4 movies
+    // attach the results to movie cards
 
 
 
+    function runMovieSelection() {
+        pickCardBtn.style.display = "none";
+        drawAgainBtn.style.display = "block";
+        movieHeader.style.display = "block";
+        movieGrid.style.display = "block";
 
-    // THIS IS WHERE I AM TRYING TO SORT OUT HOW TO QUERY THE 
-    // MOVIE API ... YOU CAN MOSTLY IGNORE THIS FOR NOW. :-)
+        let apiKey = "8ae6662de0624eaf409751a739208381";
+        const runTime = $("#runtime").val();
 
-
-    // this is the URL to query movie API based on criteria
-    let queryURL = `http://api.themoviedb.org/3/discover/movie?${apiKey}&certification_country=US&certification=`;
-    let apiKey = "8ae6662de0624eaf409751a739208381";
-    let ratingInput = $("")
-    // begin building an object to contain our API call's query parameters
-    // set the API key
-    let queryParams = { "api-key": "8ae6662de0624eaf409751a739208381" };
-
-    // grab the runtime
-    // note: this might not work - trying to figure out how to query for this
-    // when the syntax is runtime=number
-    queryParams.with_runtime = $("#runtime")
-        .val();
-
-    // grab the genre(s) - best way to collect more than one?
-    // this is the URL for calling the genre list
-    // https://api.themoviedb.org/3/genre/movie/list?api_key=8ae6662de0624eaf409751a739208381&language=en-US
-    // would we then have to match genre name with list, then use the discover/movie url and plug
-    // that number in?
-
-    // with_genre = can take more than one value, separated by commas
-    // so, maybe we build that string first?
-    queryParams.with_genre = ("#")
-        .val();
-
-    // grab the rating(s) - best way to grab more than one?
-    // &with_runtime.lte will give us all movies with runtime less than a given integer
-
-    // have to include country in order to get certification info
-    queryParams.certification_country = "US";
-
-    queryParams.certification = $("#")
-        .val();
-
-    // log the URL so we can see it and troubleshoot
-    // took this code from the NYT class exersize ... not sure how it works
-    console.log("---------------\nURL: " + queryURL + "n---------------");
-    console.log(queryURL = $.param(queryParams));
-    return queryURL + $.param(queryParams);
-
-
-    function showMovies(movieResults) {
-
-        // set the number of cards/movies at 4
-        const numMovies = 4;
-
-
-        console.log(movieResults);
-        console.log("---------------------------------");
-
-        // loop through the results and build elements for the defined number of movies
-        for (i = 0; i < numMovies; i++) {
-
-            let movieOptions = movieResults.results[i];
-
-            // increase the articleCount (track article number starting at 1)
-            let movieCount = i + 1;
-
-            // create area where results will be displayed - is this already done?
-
-            // use movieOptions.title for a title
-            // use movieOptions.overview for a description if we want to
-            // use movieOptions.poster_path for movie poster
-        }
-    }
-
-    // CLICK EVENT TO GET MOVIES
-    $("#pickCardButton").on("click", function (event) {
-
-        event.preventDefault();
-
-        // empty the area where prior movies were displayed, if any
-        clear();
-
-        // build the query URL for the ajax request to the movie API
-        let queryURL = buildQueryURL();
-
-        // make request to the API 
-        // the data then gets passed as an argument to the showMoview function
+        // query movie API according to get genre IDs
         $.ajax({
-            url: queryURL,
+            url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
             method: "GET"
+        })
+            .then(function (genres) {
+                console.log(genres);
 
-        }).then(showMovies);
+                // let queryURL = `http://api.themoviedb.org/3/discover/movie?${apiKey}&certification_country=US&certification=`;
 
+                // // get information from the inputs - need more here - maybe this is a separate funciton?
+                // let certifications = "";
+                // $(".certifications").forEach(function (elem) {
+                //     if (val) certifications += "," + val
+                //     //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
+                //     queryURL += "certification=" + certifications;
+        
+                // })
+                // // build the queryURL - maybe this is a separate function?
+                // if (runtime) queryURL += `&certification=${runtime}`;
+                // if (val) queryURL += `&certification=${val}`;
+                // if (val) queryURL += `&certification=${val}`;
+                // if (val) queryURL += `&certification=${val}`;
+                // if (val) queryURL += `&certification=${val}`;
+
+
+                $.ajax({
+                    url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=R&with_runtime=120&with_genre=18`,
+                    method: "GET"
+                })
+                    .then(function (moviedata) {
+                        console.log(moviedata);
+                    });
+            });
+
+
+            // use moviedata.title for a title
+            // use moviedptions.overview for a description if we want to
+            // use moviedptions.poster_path for movie poster
+            // use movieoptions.with_runtime for runtime
+            // use movieoptions.certification - not sure this is correct name
+        }
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-});
+// });
