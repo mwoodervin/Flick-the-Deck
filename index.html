@@ -33,14 +33,16 @@
                 </div>
                 <br />
                 <!-- Runtime Inpput -->
-                <div class="input-group">
-                    <span class="input-group-label">Max Runtime (in mins):</span>
-                    <input id="runtime" class="input-group-field" type="number"
+                <fieldset id="runtimeBlock" class="fieldset center-icons noDisplay">
+                    <legend class="text-center primary"><strong>Max Runtime (in mins):</strong></legend>
+                    <div class="align-center width-25">
+                        <input id="runtime" class="input-group-field" type="number"
                         onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="60" min="60" max="240"
                         step="10">
-                </div>
+                    </div>
+                </fieldset>
                 <!-- Rating Input -->
-                <fieldset class="fieldset center-icons">
+                <fieldset id="ratingBlock" class="fieldset center-icons noDisplay">
                     <legend class="text-center primary"><strong>Max Rating</strong></legend>
                     <div class="align-center">
                         <input id="ratedR" type="checkbox"><label for="checkbox1">R</label>
@@ -50,7 +52,7 @@
                     </div>
                 </fieldset>
                 <!-- Genre Input -->
-                <fieldset class="fieldset center-icons">
+                <fieldset id="genreBlock" class="fieldset center-icons noDisplay">
                     <legend class="text-center primary"><strong>Choose Genre</strong></legend>
                     <input id="action" type="checkbox"><label for="checkbox5">Action</label>
                     <input id="drama" type="checkbox"><label for="checkbox6">Drama</label>
