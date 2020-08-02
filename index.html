@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <script src="https://kit.fontawesome.com/87498dd281.js" crossorigin="anonymous"></script>
     <title>Flick The Deck</title>
 </head>
@@ -37,8 +38,8 @@
                     <legend class="text-center primary"><strong>Max Runtime (in mins):</strong></legend>
                     <div class="align-center width-25">
                         <input id="runtime" class="input-group-field" type="number"
-                        onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="60" min="60" max="240"
-                        step="10">
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="60" min="60"
+                            max="240" step="10">
                     </div>
                 </fieldset>
                 <!-- Rating Input -->
@@ -114,26 +115,50 @@
             <div class="grid-x grid-margin-x small-up-2 medium-up-4 align-spaced width-75">
                 <!-- Option 1 -->
                 <div class="cell">
-                    <div class="cardHolder card radius bordered shadow">
-                        <img id="moviePoster" src="https://placehold.it/150x250" alt="movie-poster1">
+                    <div class="cardHolder card no-border">
+                        <img class="animate__animated animate__fadeInLeft" id="moviePoster" src="" alt="card-1">
+                    </div>
+                    <div class="description">
+                        <h4>movie title</h4>
+                        <p>Short summary of film will go here. If the text is too long, will that matter at all?</p>
+                        <p>Runtime: 97min</p>
+                        <p>Rated: PG-13</p>
                     </div>
                 </div>
                 <!-- Option 2 -->
                 <div class="cell">
-                    <div class="cardHolder card">
-                        <img id="moviePoster" src="https://placehold.it/150x250" alt="movie-poster2">
+                    <div class="cardHolder card no-border">
+                        <img class="animate__animated animate__fadeInLeft" id="moviePoster" src="" alt="card-2">
+                    </div>
+                    <div class="description">
+                        <h4>movie title</h4>
+                        <p>Short summary of film will go here. If the text is too long, will that matter at all?</p>
+                        <p>Runtime: 97min</p>
+                        <p>Rated: PG-13</p>
                     </div>
                 </div>
                 <!-- Option 3 -->
                 <div class="cell">
-                    <div class="cardHolder card">
-                        <img id="moviePoster" src="https://placehold.it/150x250" alt="movie-poster3">
+                    <div class="cardHolder card no-border">
+                        <img class="animate__animated animate__fadeInRight" id="moviePoster" src="" alt="card-3">
+                    </div>
+                    <div class="description">
+                        <h4>movie title</h4>
+                        <p>Short summary of film will go here. If the text is too long, will that matter at all?</p>
+                        <p>Runtime: 97min</p>
+                        <p>Rated: PG-13</p>
                     </div>
                 </div>
                 <!-- Option 4 -->
                 <div class="cell">
-                    <div class="cardHolder card">
-                        <img id="moviePoster" src="https://placehold.it/150x250" alt="movie-poster4">
+                    <div class="cardHolder card no-border">
+                        <img class="animate__animated animate__fadeInRight" id="moviePoster" src="" alt="card-4">
+                    </div>
+                    <div class="description">
+                        <h4>movie title</h4>
+                        <p>Short summary of film will go here. If the text is too long, will that matter at all?</p>
+                        <p>Runtime: 97min</p>
+                        <p>Rated: PG-13</p>
                     </div>
                 </div>
             </div>

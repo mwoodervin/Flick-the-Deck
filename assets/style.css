@@ -79,3 +79,7 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+.no-border {
+    border: none;
+}
