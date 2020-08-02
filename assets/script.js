@@ -12,7 +12,7 @@ $(document).ready(function () {
     const drama = document.querySelector("#drama");
     const comedy = document.querySelector("#comedy");
     const horror = document.querySelector("#horror");
-    const kids = document.querySelector("#kids");
+    const family = document.querySelector("#family");
 
     const shuffleBtn = document.querySelector("#shuffleBtn");
     const pickCardBtn = document.querySelector("#pickCardBtn");
@@ -117,7 +117,7 @@ $(document).ready(function () {
         movieGrid.style.display = "block";
 
         let apiKey = "8ae6662de0624eaf409751a739208381";
-        const runTime = $("#runtime").val();
+        // const runTime = $("#runtime").val();
 
         // query movie API according to get genre IDs
         $.ajax({
@@ -131,43 +131,78 @@ $(document).ready(function () {
 
                 // get information from the inputs - need more here - maybe this is a separate funciton?
                 let certifications = "";
-                console.log(ratedR.checked);
-                $(".certifications").each(function(elem) {
+                let genre = "";
+
+                // build the ratings section of the queryURL
+                $(".certifications").each(function (rating) {
                     if (ratedR.checked) {
                         certifications += ",R"
-                        console.log(certifications);
-                        elem ++
-                    }    
-                    //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
-                    queryURL += "&certification=" + certifications.slice(1);
-                    console.log(queryURL);
+                    }
+                    if (ratedPG13.checked) {
+                        certifications += ",PG13"
+                    }
+                    if (ratedPG.checked) {
+                        certifications += ",PG"
+                    }
+                    if (ratedG.checked) {
+                        certifications += ",G"
+                    }
+                    rating++
                 })
 
-                // build the queryURL - maybe this is a separate function?
-                // if (runtime) queryURL += `&certification=${runtime}`;
-                // if (val) queryURL += `&certification=${val}`;
-                // if (val) queryURL += `&certification=${val}`;
-                // if (val) queryURL += `&certification=${val}`;
-                // if (val) queryURL += `&certification=${val}`;
+                //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
+                // queryURL += "&certification=" + certifications.slice(1);
 
+                // build the genre section of the queryURL
+                $(".genre-selection").each(function (type) {
+                    if (action.checked) {
+                        genre += ",28"
+                    }
+                    if (drama.checked) {
+                        genre += ",18"
+                    }
+                    if (comedy.checked) {
+                        genre += ",35"
+                    }
+                    if (horror.checked) {
+                        genre += ",27"
+                    }
+                    if (family.checked) {
+                        genre += ",10751"
+                    }
+                    type++
+                })
+                queryURL += "&certification=" + certifications.slice(1) + "&with_genre=" + genre.slice(1) + "&with_runtime.lte=" + runtime.value;
+                console.log(queryURL);
 
+                // call the movie API
                 $.ajax({
-                    url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=R&with_runtime=120&with_genre=18`,
+                    // url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=R&with_runtime=120&with_genre=18`,
+                    url: queryURL,
                     method: "GET"
                 })
                     .then(function (moviedata) {
-                        // console.log(moviedata);
+                        console.log(moviedata);
                     });
-            });
+
+            })
+
+        // build the queryURL - maybe this is a separate function?
+        // if (runtime) queryURL += `&certification=${runtime}`;
+        // if (val) queryURL += `&certification=${val}`;
+        // if (val) queryURL += `&certification=${val}`;
+        // if (val) queryURL += `&certification=${val}`;
+        // if (val) queryURL += `&certification=${val}`;
+
+    };
 
 
-            // use moviedata.title for a title
-            // use moviedptions.overview for a description if we want to
-            // use moviedptions.poster_path for movie poster
-            // use movieoptions.with_runtime for runtime
-            // use movieoptions.certification - not sure this is correct name
-        }
-    });
+    // use moviedata.title for a title
+    // use moviedptions.overview for a description if we want to
+    // use moviedptions.poster_path for movie poster
+    // use movieoptions.with_runtime for runtime
+    // use movieoptions.certification - not sure this is correct name
+    // });
+});
 
 
-// });
