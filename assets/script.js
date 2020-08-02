@@ -157,15 +157,17 @@ $(document).ready(function () {
 
         // call the movie API
         $.ajax({
-            // url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=R&with_runtime=120&with_genre=18`,
             url: queryURL,
             method: "GET"
         })
-            .then(function (moviedata) {
-                // console.log(moviedata);
 
+            .then(function (moviedata) {
+                console.log(moviedata);
                 for (i = 0; i < 4; i++) {
-                    // console.log(moviedata.results[i].id);
+                    console.log(moviedata.results[i].title);
+                    console.log(moviedata.results[i].overview);
+                    console.log(moviedata.results[i].poster_path);
+
                     movieId = moviedata.results[i].id;
                     let ratingURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=release_dates`
                     $.ajax({
@@ -173,7 +175,7 @@ $(document).ready(function () {
                         method: "GET"
                         })
                         .then(function (ratingdata) {
-                            // console.log(ratingdata.release_dates.results);
+                            console.log(ratingdata.runtime);
                             let returnData = ratingdata.release_dates.results;
     
                             for (i = 0; i < returnData.length; i++) {
