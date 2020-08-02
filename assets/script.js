@@ -12,7 +12,7 @@ $(document).ready(function () {
     const drama = document.querySelector("#drama");
     const comedy = document.querySelector("#comedy");
     const horror = document.querySelector("#horror");
-    const kids = document.querySelector("#kids");
+    const family = document.querySelector("#family");
 
     const shuffleBtn = document.querySelector("#shuffleBtn");
     const pickCardBtn = document.querySelector("#pickCardBtn");
@@ -98,17 +98,6 @@ $(document).ready(function () {
             })
 
     }
-    // query movie API for genre IDs
-
-    // gather the movie parameters
-
-    // build the movie queryURL
-
-    // query the movie API
-
-    // attach the results to movie cards
-
-
 
     function runMovieSelection() {
         pickCardBtn.style.display = "none";
@@ -116,58 +105,124 @@ $(document).ready(function () {
         movieHeader.style.display = "block";
         movieGrid.style.display = "block";
 
+        // build queryURL
         let apiKey = "8ae6662de0624eaf409751a739208381";
-        const runTime = $("#runtime").val();
 
-        // query movie API according to get genre IDs
+        let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US`;
+
+
+        let certifications = "";
+        let genre = "";
+
+        // build the ratings section of the queryURL
+        $(".certifications").each(function (rating) {
+            if (ratedR.checked) {
+                certifications += "|R"
+            }
+            if (ratedPG13.checked) {
+                certifications += "|PG-13"
+            }
+            if (ratedPG.checked) {
+                certifications += "|PG"
+            }
+            if (ratedG.checked) {
+                certifications += "|G"
+            }
+            rating++
+        })
+
+        //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
+
+        // build the genre section of the queryURL
+        $(".genre-selection").each(function (type) {
+            if (action.checked) {
+                genre += "|28"
+            }
+            if (drama.checked) {
+                genre += "|18"
+            }
+            if (comedy.checked) {
+                genre += "|35"
+            }
+            if (horror.checked) {
+                genre += "|27"
+            }
+            if (family.checked) {
+                genre += "|10751"
+            }
+            type++
+        })
+        queryURL += "&certification=" + certifications.slice(1) + "&with_genres=" + genre.slice(1) + "&with_runtime.lte=" + runtime.value;
+
+        // Call the movie API with user input
         $.ajax({
-            url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
+            url: queryURL,
             method: "GET"
         })
-            .then(function (genres) {
-                // console.log(genres);
+            // Get title, movie blurb, poster URL
+            .then(function (moviedata) {
+                console.log(moviedata);
+                // This loop grabs top 4 movies in the list - they are ranked by popularity, so this takes top 4 most-popular movies meeting criteria
+                for (i = 0; i < 4; i++) {
+                    // Set variable for title
+                    let movieTitle = moviedata.results[i].title;
+                    
+                    // Set variable for movie blurb
+                    let movieBlurb = moviedata.results[i].overview;
+                    
+                    // Set variable for title
+                    let moviePoster = moviedata.results[i].poster_path;
 
-                let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US`;
+                    // Console.log title, movie blurb and poster URL - these can be removed later
+                    console.log(moviedata.results[i].title);
+                    console.log(moviedata.results[i].overview);
+                    console.log(moviedata.results[i].poster_path);
 
-                // get information from the inputs - need more here - maybe this is a separate funciton?
-                let certifications = "";
-                console.log(ratedR.checked);
-                $(".certifications").each(function(elem) {
-                    if (ratedR.checked) {
-                        certifications += ",R"
-                        console.log(certifications);
-                        elem ++
-                    }    
-                    //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
-                    queryURL += "&certification=" + certifications.slice(1);
-                    console.log(queryURL);
-                })
+                    // Set movieId variable to be used in the next API call
+                    movieId = moviedata.results[i].id;
 
-                // build the queryURL - maybe this is a separate function?
-                // if (runtime) queryURL += `&certification=${runtime}`;
-                // if (val) queryURL += `&certification=${val}`;
-                // if (val) queryURL += `&certification=${val}`;
-                // if (val) queryURL += `&certification=${val}`;
-                // if (val) queryURL += `&certification=${val}`;
+                    // Create the URL for a new call to the API using movieId
+                    let ratingURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=release_dates`
+                    
+                    // New call to movie API to get rating and runtime
+                    $.ajax({
+                        url: ratingURL,
+                        method: "GET"
+                        })
+                        .then(function (ratingdata) {
+                            // Console.log runtime - this can be removed later
+                            console.log(ratingdata.runtime);
 
+                            // Set variable for runtime
+                            let runTime = ratingdata.runtime;
 
-                $.ajax({
-                    url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification=R&with_runtime=120&with_genre=18`,
-                    method: "GET"
-                })
-                    .then(function (moviedata) {
-                        // console.log(moviedata);
-                    });
-            });
+                            let returnData = ratingdata.release_dates.results;
 
+                            // Loop through results and find the US rating information
+                            for (i = 0; i < returnData.length; i++) {
+                                if (returnData[i].iso_3166_1 == "US") {
 
-            // use moviedata.title for a title
-            // use moviedptions.overview for a description if we want to
-            // use moviedptions.poster_path for movie poster
-            // use movieoptions.with_runtime for runtime
-            // use movieoptions.certification - not sure this is correct name
-        }
-    });
+                                    // Set variable for rating
+                                    let usaRating = returnData[i].release_dates[0].certification;
+                                    
+                                    // Console.log rating
+                                    console.log(usaRating);
+                                }
+                                else {usaRating = "rating not available"}
+                            };
+                        });
+                }   
+            // });
+    
+        });
+    }
+    // attach the results to movie cards
 
+    // use moviedata.title for a title
+    // use moviedptions.overview for a description if we want to
+    // use moviedptions.poster_path for movie poster
+    // use movieoptions.with_runtime for runtime
+    // use movieoptions.certification - not sure this is correct name
+    // });
+});
 
-// });
