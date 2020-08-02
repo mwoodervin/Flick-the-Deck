@@ -162,10 +162,33 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (moviedata) {
-                console.log(moviedata);
-            });
-    };
+                // console.log(moviedata);
 
+                for (i = 0; i < 4; i++) {
+                    // console.log(moviedata.results[i].id);
+                    movieId = moviedata.results[i].id;
+                    let ratingURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=release_dates`
+                    $.ajax({
+                        url: ratingURL,
+                        method: "GET"
+                        })
+                        .then(function (ratingdata) {
+                            // console.log(ratingdata.release_dates.results);
+                            let returnData = ratingdata.release_dates.results;
+    
+                            for (i = 0; i < returnData.length; i++) {
+                                if (returnData[i].iso_3166_1 == "US") {
+                                    let usaRating = returnData[i].release_dates[0].certification;
+                                    console.log(usaRating);
+                                }
+                                else {usaRating = "rating not available"}
+                            };
+                        });
+                }   
+            // });
+    
+        });
+    }
     // attach the results to movie cards
 
     // use moviedata.title for a title
@@ -175,5 +198,4 @@ $(document).ready(function () {
     // use movieoptions.certification - not sure this is correct name
     // });
 });
-
 
