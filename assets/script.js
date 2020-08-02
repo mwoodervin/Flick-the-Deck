@@ -153,34 +153,59 @@ $(document).ready(function () {
             type++
         })
         queryURL += "&certification=" + certifications.slice(1) + "&with_genres=" + genre.slice(1) + "&with_runtime.lte=" + runtime.value;
-        console.log(queryURL);
 
-        // call the movie API
+        // Call the movie API with user input
         $.ajax({
             url: queryURL,
             method: "GET"
         })
-
+            // Get title, movie blurb, poster URL
             .then(function (moviedata) {
                 console.log(moviedata);
+                // This loop grabs top 4 movies in the list - they are ranked by popularity, so this takes top 4 most-popular movies meeting criteria
                 for (i = 0; i < 4; i++) {
+                    // Set variable for title
+                    let movieTitle = moviedata.results[i].title;
+                    
+                    // Set variable for movie blurb
+                    let movieBlurb = moviedata.results[i].overview;
+                    
+                    // Set variable for title
+                    let moviePoster = moviedata.results[i].poster_path;
+
+                    // Console.log title, movie blurb and poster URL - these can be removed later
                     console.log(moviedata.results[i].title);
                     console.log(moviedata.results[i].overview);
                     console.log(moviedata.results[i].poster_path);
 
+                    // Set movieId variable to be used in the next API call
                     movieId = moviedata.results[i].id;
+
+                    // Create the URL for a new call to the API using movieId
                     let ratingURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=release_dates`
+                    
+                    // New call to movie API to get rating and runtime
                     $.ajax({
                         url: ratingURL,
                         method: "GET"
                         })
                         .then(function (ratingdata) {
+                            // Console.log runtime - this can be removed later
                             console.log(ratingdata.runtime);
+
+                            // Set variable for runtime
+                            let runTime = ratingdata.runtime;
+
                             let returnData = ratingdata.release_dates.results;
-    
+
+                            // Loop through results and find the US rating information
                             for (i = 0; i < returnData.length; i++) {
                                 if (returnData[i].iso_3166_1 == "US") {
+
+                                    // Set variable for rating
                                     let usaRating = returnData[i].release_dates[0].certification;
+                                    
+                                    // Console.log rating
                                     console.log(usaRating);
                                 }
                                 else {usaRating = "rating not available"}
