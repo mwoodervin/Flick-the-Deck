@@ -16,4 +16,9 @@ Screenshots:
 
 <img width="1202" alt="Screen Shot 2020-07-30 at 3 37 35 PM" src="https://user-images.githubusercontent.com/65634748/88969466-e94be980-d27e-11ea-91ba-8e0141511274.png">
 
-<img width="1208" alt="Screen Shot 2020-07-30 at 3 38 03 PM" src="https://user-images.githubusercontent.com/65634748/88969648-27e1a400-d27f-11ea-81cf-7bf56057ecd0.png">
+
+![Screen Shot 2020-08-04 at 6 11 02 PM](https://user-images.githubusercontent.com/65634748/89350589-521bd300-d67e-11ea-8fe4-0435af5b75c5.png)
+
+![Screen Shot 2020-08-04 at 6 11 18 PM](https://user-images.githubusercontent.com/65634748/89350583-4defb580-d67e-11ea-9130-63f8e184f235.png)
+
+

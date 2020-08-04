@@ -71,7 +71,6 @@ $(document).ready(function () {
 
     $(document).on("click", '#moviePoster', function (event) {
         event.preventDefault();
-        console.log("here");
         runMovieSelection();
         $(".showRating").css("display", "block");
         $(".showLength").css("display", "block");
@@ -91,7 +90,6 @@ $(document).ready(function () {
     }
 
     // Main function to create movie selection
-    // 
 
     // Shuffle the Cards API
     const cardHolder = $(".cardHolder");
