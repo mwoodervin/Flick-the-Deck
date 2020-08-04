@@ -27,6 +27,7 @@ $(document).ready(function () {
 
     const movieHeader = document.querySelector("#movie-header");
     const movieGrid = document.querySelector("#movie-grid");
+    let cardid;
 
     // Shuffles the deck of cards
     shuffleBtn.onclick = function () {
@@ -37,19 +38,31 @@ $(document).ready(function () {
         $("#ratingBlock").css("display", "block");
         $("#genreBlock").attr("class", "fieldset center-icons");
     }
+    drawAgainBtn.onclick = function (){
+        
+        //drawAgainBtn.style.display = "none";
+        //make an if statement to show # cards = 0 and then shuffle again
+        //enable click
+        drawAgain();
+    }
 
     // Validate Rating & Genre Selection
     pickCardBtn.onclick = function () {
-        shuffleCards();
+        console.log("do you work");
         let runtimeLength = document.querySelector("#runtime").value;
-        if (runtimeLength < 60 || runtimeLength > 240 || isNaN(runtimeLength)) {
+        if (runtimeLength < 90 || runtimeLength > 240 || isNaN(runtimeLength)) {
             runtimeModal.style.display = "block";
         } else if (!ratedR.checked && !ratedPG13.checked && !ratedPG.checked && !ratedG.checked) {
             ratingModal.style.display = "block";
         } else if (!action.checked && !drama.checked && !comedy.checked && !horror.checked && !kids.checked) {
             genreModal.style.display = "block";
-        } else runMovieSelection();
+        } else shuffleCards();
     };
+    $(document).on("click", '#moviePoster', function (event) {
+        event.preventDefault();
+        console.log("here");
+        runMovieSelection();
+    })
 
     // When the user clicks on either close button (x), close the modal
     closeBtn1.onclick = function () {
@@ -69,14 +82,13 @@ $(document).ready(function () {
     const cardHolder = $(".cardHolder");
     function shuffleCards() {
 
-
         $.ajax({
             url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
             method: "GET"
         })
 
             .then(function (getid) {
-                var cardid = getid.deck_id;
+                cardid = getid.deck_id;
                 // console.log(cardid);
 
 
@@ -87,24 +99,38 @@ $(document).ready(function () {
                 })
 
                     .then(function (drawcard) {
-                        // console.log(drawcard)
+                        console.log('drawcard');
                         cardHolder.each(function (choice) {
                             const _this = $(this);
                             _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
                             choice++
                         })
+                        pickCardBtn.style.display = "none";
+                        drawAgainBtn.style.display = "block";
+                        movieHeader.style.display = "block";
+                        movieGrid.style.display = "block";
                     })
 
             })
 
     }
+    function drawAgain() {
+        $.ajax({
+            url: "https://deckofcardsapi.com/api/deck/" + cardid + "/draw/?count=4",
+            method: "GET"
+        })
+            .then(function (drawcard) {
+                // console.log(drawcard)
+                cardHolder.each(function (choice) {
+                    const _this = $(this);
+                    _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
+                    choice++
+                })
+            })
+    }
 
     function runMovieSelection() {
-        pickCardBtn.style.display = "none";
-        drawAgainBtn.style.display = "block";
-        movieHeader.style.display = "block";
-        movieGrid.style.display = "block";
-
+        
         // build queryURL
         let apiKey = "8ae6662de0624eaf409751a739208381";
 
@@ -163,7 +189,9 @@ $(document).ready(function () {
             .then(function (moviedata) {
                 console.log(moviedata);
                 // This loop grabs top 4 movies in the list - they are ranked by popularity, so this takes top 4 most-popular movies meeting criteria
-                for (i = 0; i < 4; i++) {
+                //for (i = 0; i < 4; i++) {
+                    cardHolder.each(function (i, childElm) {
+
                     // Set variable for title
                     let movieTitle = moviedata.results[i].title;
                     
@@ -183,7 +211,16 @@ $(document).ready(function () {
 
                     // Create the URL for a new call to the API using movieId
                     let ratingURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=release_dates`
-                    
+
+                    //$('.card-holder').each(function (poster) {
+                    $(childElm).find('#moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster);
+                        //poster++;
+                    //})
+
+                    //let movieTitle = $('<h4>').text(moviedata.results[choice].title);
+
+                    //let movieSummary = $('<pMovie Summary: >').text(moviedata.results[choice].overview);
+
                     // New call to movie API to get rating and runtime
                     $.ajax({
                         url: ratingURL,
@@ -210,11 +247,27 @@ $(document).ready(function () {
                                 }
                                 else {usaRating = "rating not available"}
                             };
+                            //displayFilm();
                         });
-                }   
+
+                });
+
             // });
     
         });
+    }
+    function displayFilm() {
+        
+
+        $('.description').each(function(choice) {
+
+            
+            let runTime = $('<pRuntime: >').text(rating.runtime);
+            let movieRating = $('<pRating: >').text(usaRating);
+            $('.description').append(movieTitle, movieSummary, runTime, movieRating);
+            choice++;
+        })
+        
     }
     // attach the results to movie cards
 
