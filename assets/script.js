@@ -46,6 +46,16 @@ $(document).ready(function () {
         drawAgain();
     }
 
+    //Allows user to only choose 1 rating
+    // Cited:   https://stackoverflow.com/questions/9709209/html-select-only-one-checkbox-in-a-group
+    $(".selectOne").on("change", function () {
+        $(".selectOne").not(this).prop("checked", false);
+    });
+
+    $(".chooseOne").on("change", function () {
+        $(".chooseOne").not(this).prop("checked", false);
+    });
+
     // Validate Rating & Genre Selection
     pickCardBtn.onclick = function () {
         console.log("do you work");
@@ -54,14 +64,19 @@ $(document).ready(function () {
             runtimeModal.style.display = "block";
         } else if (!ratedR.checked && !ratedPG13.checked && !ratedPG.checked && !ratedG.checked) {
             ratingModal.style.display = "block";
-        } else if (!action.checked && !drama.checked && !comedy.checked && !horror.checked && !kids.checked) {
+        } else if (!action.checked && !drama.checked && !comedy.checked && !horror.checked && !family.checked) {
             genreModal.style.display = "block";
         } else shuffleCards();
     };
+
     $(document).on("click", '#moviePoster', function (event) {
         event.preventDefault();
         console.log("here");
         runMovieSelection();
+        $(".showRating").css("display", "block");
+        $(".showLength").css("display", "block");
+        $(".title").css("display", "block");
+        $(".summary").css("display", "block");
     })
 
     // When the user clicks on either close button (x), close the modal
@@ -80,6 +95,7 @@ $(document).ready(function () {
 
     // Shuffle the Cards API
     const cardHolder = $(".cardHolder");
+    const description = $(".description");
     function shuffleCards() {
 
         $.ajax({
@@ -115,6 +131,10 @@ $(document).ready(function () {
 
     }
     function drawAgain() {
+        $(".showRating").css("display", "none");
+        $(".showLength").css("display", "none");
+        $(".title").css("display", "none");
+        $(".summary").css("display", "none");
         $.ajax({
             url: "https://deckofcardsapi.com/api/deck/" + cardid + "/draw/?count=4",
             method: "GET"
@@ -138,8 +158,7 @@ $(document).ready(function () {
 
 
         let certifications = "";
-        let genre = "";
-
+        
         // build the ratings section of the queryURL
         $(".certifications").each(function (rating) {
             if (ratedR.checked) {
@@ -154,11 +173,13 @@ $(document).ready(function () {
             if (ratedG.checked) {
                 certifications += "|G"
             }
+            console.log(certifications);
             rating++
         })
-
+        
         //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
-
+        
+        let genre = "";
         // build the genre section of the queryURL
         $(".genre-selection").each(function (type) {
             if (action.checked) {
@@ -179,7 +200,7 @@ $(document).ready(function () {
             type++
         })
         queryURL += "&certification=" + certifications.slice(1) + "&with_genres=" + genre.slice(1) + "&with_runtime.lte=" + runtime.value;
-
+        console.log(queryURL);
         // Call the movie API with user input
         $.ajax({
             url: queryURL,
@@ -213,7 +234,11 @@ $(document).ready(function () {
                     let ratingURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=release_dates`
 
                     //$('.card-holder').each(function (poster) {
+                    let usaRating;
+                    let runTime;
                     $(childElm).find('#moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster);
+                    $(childElm).find(".summary").text(movieBlurb);
+                    $(childElm).find(".title").text(movieTitle);
                         //poster++;
                     //})
 
@@ -231,7 +256,7 @@ $(document).ready(function () {
                             console.log(ratingdata.runtime);
 
                             // Set variable for runtime
-                            let runTime = ratingdata.runtime;
+                            runTime = ratingdata.runtime;
 
                             let returnData = ratingdata.release_dates.results;
 
@@ -240,13 +265,15 @@ $(document).ready(function () {
                                 if (returnData[i].iso_3166_1 == "US") {
 
                                     // Set variable for rating
-                                    let usaRating = returnData[i].release_dates[0].certification;
+                                    usaRating = returnData[i].release_dates[0].certification;
                                     
                                     // Console.log rating
                                     console.log(usaRating);
                                 }
-                                else {usaRating = "rating not available"}
+                                // else {usaRating = "rating not available"}
                             };
+                            $(childElm).find(".length").text(runTime);
+                            $(childElm).find(".rating").text(usaRating);
                             //displayFilm();
                         });
 

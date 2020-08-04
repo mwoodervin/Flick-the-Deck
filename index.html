@@ -44,17 +44,17 @@
                 </fieldset>
                 <!-- Rating Input -->
                 <fieldset id="ratingBlock" class="fieldset center-icons noDisplay">
-                    <legend class="text-center primary"><strong>Max Rating</strong></legend>
+                    <legend class="text-center primary"><strong>Select A Rating</strong></legend>
                     <div class="align-center certifications">
-                        <input id="ratedR" type="checkbox"><label for="checkbox1">R</label>
-                        <input id="ratedPG13" type="checkbox"><label for="checkbox2">PG-13</label>
-                        <input id="ratedPG" type="checkbox"><label for="checkbox3">PG</label>
-                        <input id="ratedG" type="checkbox"><label for="checkbox4">G</label>
+                        <input class="selectOne" id="ratedR" type="checkbox"><label for="checkbox1">R</label>
+                        <input class="selectOne" id="ratedPG13" type="checkbox"><label for="checkbox2">PG-13</label>
+                        <input class="selectOne" id="ratedPG" type="checkbox"><label for="checkbox3">PG</label>
+                        <input class="selectOne" id="ratedG" type="checkbox"><label for="checkbox4">G</label>
                     </div>
                 </fieldset>
                 <!-- Genre Input -->
                 <fieldset id="genreBlock" class="fieldset center-icons noDisplay">
-                    <legend class="text-center primary"><strong>Choose Genre</strong></legend>
+                    <legend class="text-center primary"><strong>Choose A Genre</strong></legend>
                     <!-- <div class="genre-selection">
                         <input id="action" type="checkbox"><label for="checkbox5">Action</label>
                         <input id="drama" type="checkbox"><label for="checkbox6">Drama</label>
@@ -62,19 +62,17 @@
                         <input id="horror" type="checkbox"><label for="checkbox8">Horror</label>
                         <input id="family" type="checkbox"><label for="checkbox9">Family</label>
                     </div> -->
-                    <div class="row">
-                        <div class="columns small-12 medium-6 large-expand">
-                            <input id="action" type="checkbox">
-                            <label for="checkbox5">Action</label>
-                        </div>
-                        <div class="columns small-12 medium-6 large-expand"><input id="drama" type="checkbox"><label
-                                for="checkbox6">Drama</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input id="comedy" type="checkbox"><label
-                                for="checkbox7">Comedy</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input id="horror" type="checkbox"><label
-                                for="checkbox8">Horror</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input id="family" type="checkbox"><label
-                                for="checkbox9">Family</label></div>
+                    <div class="row genre-selection">
+                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="action"
+                                type="checkbox"><label for="checkbox5">Action</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="drama"
+                                type="checkbox"><label for="checkbox6">Drama</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="comedy"
+                                type="checkbox"><label for="checkbox7">Comedy</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="horror"
+                                type="checkbox"><label for="checkbox8">Horror</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="family"
+                                type="checkbox"><label for="checkbox9">Family</label></div>
                     </div>
                 </fieldset>
                 <br />
@@ -131,43 +129,59 @@
         <section id="movie-grid" class="grid-container noDisplay">
             <div class="grid-x grid-margin-x small-up-2 medium-up-4 align-spaced width-75">
                 <!-- Option 1 -->
-                <div class="cell">
-                    <div class="cardHolder card no-border">
+                <div class="cell cardHolder">
+                    <div class="card no-border">
                         <img class="animate__animated animate__fadeInLeft" id="moviePoster" src="" alt="card-1">
                     </div>
                     <div class="description">
-                        
+                        <h3 class="title"></h3>
+                        <p class="summary"></p>
+                        <p class="showLength noDisplay"><strong>Runtime: </strong><span class="length">mins</span></p>
+                        <p class="showRating noDisplay"><strong>Rated: </strong><span class="rating"></span></p>
                     </div>
                 </div>
                 <!-- Option 2 -->
-                <div class="cell">
-                    <div class="cardHolder card no-border">
+                <div class="cell cardHolder">
+                    <div class="card no-border">
                         <img class="animate__animated animate__fadeInLeft" id="moviePoster" src="" alt="card-2">
                     </div>
                     <div class="description">
-                        
+                        <h3 class="title"></h3>
+                        <p class="summary"></p>
+                        <p class="showLength noDisplay"><strong>Runtime: </strong><span class="length">mins</span></p>
+                        <p class="showRating noDisplay"><strong>Rated: </strong><span class="rating"></span></p>
                     </div>
                 </div>
                 <!-- Option 3 -->
-                <div class="cell">
-                    <div class="cardHolder card no-border">
+                <div class="cell cardHolder">
+                    <div class="card no-border">
                         <img class="animate__animated animate__fadeInRight" id="moviePoster" src="" alt="card-3">
                     </div>
                     <div class="description">
-                        
+                        <h3 class="title"></h3>
+                        <p class="summary"></p>
+                        <p class="showLength noDisplay"><strong>Runtime: </strong><span class="length">mins</span></p>
+                        <p class="showRating noDisplay"><strong>Rated: </strong><span class="rating"></span></p>
                     </div>
                 </div>
                 <!-- Option 4 -->
-                <div class="cell">
-                    <div class="cardHolder card no-border">
+                <div class="cell cardHolder">
+                    <div class="card no-border">
                         <img class="animate__animated animate__fadeInRight" id="moviePoster" src="" alt="card-4">
                     </div>
                     <div class="description">
-                        
+                        <h3 class="title"></h3>
+                        <p class="summary"></p>
+                        <p class="showLength noDisplay"><strong>Runtime: </strong><span class="length">mins</span></p>
+                        <p class="showRating noDisplay"><strong>Rated: </strong><span class="rating"></span></p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- <section>
+            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="themoviedb" /> 
+        </section> -->
 
     </main>
 
@@ -175,6 +189,12 @@
 
     <!-- Footer -->
     <footer class="text-center bg-primary">
+        <div>
+            <p class="no-margin">This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+            <img class="footerIconWidth"
+                src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg"
+                alt="themoviedb" />
+        </div>
         <div>
             <p class="no-margin">Copyright &ThickSpace;&copy;2020</p>
         </div>
