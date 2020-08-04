@@ -55,18 +55,33 @@
                 <!-- Genre Input -->
                 <fieldset id="genreBlock" class="fieldset center-icons noDisplay">
                     <legend class="text-center primary"><strong>Choose Genre</strong></legend>
-                    <div class=genre-selection>
+                    <!-- <div class="genre-selection">
                         <input id="action" type="checkbox"><label for="checkbox5">Action</label>
                         <input id="drama" type="checkbox"><label for="checkbox6">Drama</label>
                         <input id="comedy" type="checkbox"><label for="checkbox7">Comedy</label>
                         <input id="horror" type="checkbox"><label for="checkbox8">Horror</label>
                         <input id="family" type="checkbox"><label for="checkbox9">Family</label>
+                    </div> -->
+                    <div class="row">
+                        <div class="columns small-12 medium-6 large-expand">
+                            <input id="action" type="checkbox">
+                            <label for="checkbox5">Action</label>
+                        </div>
+                        <div class="columns small-12 medium-6 large-expand"><input id="drama" type="checkbox"><label
+                                for="checkbox6">Drama</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input id="comedy" type="checkbox"><label
+                                for="checkbox7">Comedy</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input id="horror" type="checkbox"><label
+                                for="checkbox8">Horror</label></div>
+                        <div class="columns small-12 medium-6 large-expand"><input id="family" type="checkbox"><label
+                                for="checkbox9">Family</label></div>
                     </div>
                 </fieldset>
                 <br />
                 <!-- Selector Buttons -->
                 <div class="button-group align-spaced">
-                    <a id="shuffleBtn" class="animate__animated animate__backInUp button primary btnWidth">Shuffle The Deck!</a>
+                    <a id="shuffleBtn" class="animate__animated animate__backInUp button primary btnWidth">Shuffle The
+                        Deck!</a>
                     <a id="pickCardBtn" class="button success btnWidth noDisplay">Draw 4 Cards!</a>
                     <a id="drawAgainBtn" class="button warning btnWidth noDisplay">Draw Again</a>
                 </div>
