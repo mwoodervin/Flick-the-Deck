@@ -83,3 +83,7 @@ main {
 .no-border {
     border: none;
 }
+
+.footerIconWidth {
+    width: 20%;
+}
