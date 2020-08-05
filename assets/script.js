@@ -57,7 +57,7 @@ $(document).ready(function () {
         } else shuffleCards();
     });
 
-    $(document).on("click", '#moviePoster', function (event) {
+    $(document).on("click", '.moviePoster', function (event) {
         event.preventDefault();
         console.log("here");
         runMovieSelection();
@@ -106,7 +106,7 @@ $(document).ready(function () {
                         console.log('drawcard');
                         cardHolder.each(function (choice) {
                             const _this = $(this);
-                            _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
+                            _this.find(".moviePoster").attr("src", drawcard.cards[choice].image);
                             choice++
                         })
                         $("#pickCardBtn").hide();
@@ -119,6 +119,7 @@ $(document).ready(function () {
 
     }
     function drawAgain() {
+        event.preventDefault();
         $(".showRating").css("display", "none");
         $(".showLength").css("display", "none");
         $(".title").css("display", "none");
@@ -128,10 +129,10 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (drawcard) {
-                // console.log(drawcard)
+                console.log(drawcard)
                 cardHolder.each(function (choice) {
                     const _this = $(this);
-                    _this.find("#moviePoster").attr("src", drawcard.cards[choice].image).addClass("animate__animated animate__flip");
+                    _this.find(".dontClick").attr("src", drawcard.cards[choice].image).addClass("animate__animated animate__flip moviePoster").removeClass("dontClick");
                     choice++
                 })
             })
@@ -236,10 +237,10 @@ $(document).ready(function () {
                     //$('.card-holder').each(function (poster) {
                     let usaRating;
                     let runTime;
-                    $(childElm).find('#moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster).addClass("animate__animated animate__flip");
+                    $(childElm).find('.moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster).addClass("animate__animated animate__flip dontClick").removeClass("moviePoster");
                     $(childElm).find(".summary").text(movieBlurb);
                     $(childElm).find(".title").text(movieTitle);
-                    
+
                     // New call to movie API to get rating and runtime
                     $.ajax({
                         url: ratingURL,
