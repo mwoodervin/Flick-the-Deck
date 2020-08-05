@@ -43,36 +43,39 @@
                     </div>
                 </fieldset>
                 <!-- Rating Input -->
-                <fieldset id="ratingBlock" class="fieldset center-icons noDisplay">
+                <fieldset id="ratingBlock" class="fieldset noDisplay">
                     <legend class="text-center primary"><strong>Select A Rating</strong></legend>
-                    <div class="align-center certifications">
-                        <input class="selectOne" id="ratedR" type="checkbox"><label for="checkbox1">R</label>
-                        <input class="selectOne" id="ratedPG13" type="checkbox"><label for="checkbox2">PG-13</label>
-                        <input class="selectOne" id="ratedPG" type="checkbox"><label for="checkbox3">PG</label>
-                        <input class="selectOne" id="ratedG" type="checkbox"><label for="checkbox4">G</label>
+                    <div class="grid-x grid-padding-x text-center certifications">
+                        <div class="cell small-12 medium-6 large-3"><input class="selectOne" id="ratedR" type="checkbox"><label
+                                for="checkbox1">R</label>
+                        </div>
+                        <div class="cell small-12 medium-6 large-3"><input class="selectOne" id="ratedPG13" type="checkbox"><label
+                                for="checkbox2">PG-13</label>
+                        </div>
+                        <div class="cell small-12 medium-6 large-3"><input class="selectOne" id="ratedPG" type="checkbox"><label
+                                for="checkbox3">PG</label>
+                        </div>
+                        <div class="cell small-12 medium-6 large-3"><input class="selectOne" id="ratedG" type="checkbox"><label
+                                for="checkbox4">G</label>
+                        </div>
                     </div>
                 </fieldset>
                 <!-- Genre Input -->
-                <fieldset id="genreBlock" class="fieldset center-icons noDisplay">
+                <fieldset id="genreBlock" class="fieldset noDisplay">
                     <legend class="text-center primary"><strong>Choose A Genre</strong></legend>
-                    <!-- <div class="genre-selection">
-                        <input id="action" type="checkbox"><label for="checkbox5">Action</label>
-                        <input id="drama" type="checkbox"><label for="checkbox6">Drama</label>
-                        <input id="comedy" type="checkbox"><label for="checkbox7">Comedy</label>
-                        <input id="horror" type="checkbox"><label for="checkbox8">Horror</label>
-                        <input id="family" type="checkbox"><label for="checkbox9">Family</label>
-                    </div> -->
-                    <div class="row genre-selection">
-                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="action"
-                                type="checkbox"><label for="checkbox5">Action</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="drama"
-                                type="checkbox"><label for="checkbox6">Drama</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="comedy"
-                                type="checkbox"><label for="checkbox7">Comedy</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="horror"
-                                type="checkbox"><label for="checkbox8">Horror</label></div>
-                        <div class="columns small-12 medium-6 large-expand"><input class="chooseOne" id="family"
-                                type="checkbox"><label for="checkbox9">Family</label></div>
+                    <div class="grid-x grid-padding-x genre-selection">
+                        <div class="cell small-12 medium-6 large-4"><input class="chooseOne" id="action" type="checkbox"><label
+                                for="checkbox5">Action</label></div>
+                        <div class="cell small-12 medium-6 large-4"><input class="chooseOne" id="drama" type="checkbox"><label
+                                for="checkbox6">Drama</label></div>
+                        <div class="cell small-12 medium-6 large-4"><input class="chooseOne" id="comedy" type="checkbox"><label
+                                for="checkbox7">Comedy</label></div>
+                        <div class="cell small-12 medium-6 large-4"><input class="chooseOne" id="horror" type="checkbox"><label
+                                for="checkbox8">Horror</label></div>
+                        <div class="cell small-12 medium-6 large-4"><input class="chooseOne" id="family" type="checkbox"><label
+                                for="checkbox9">Family</label></div>
+                        <div class="cell small-12 medium-6 large-4"><input class="chooseOne" id="romance" type="checkbox"><label
+                                for="checkbox10">Romance</label></div>
                     </div>
                 </fieldset>
                 <br />
@@ -124,7 +127,7 @@
 
         <!-- Results  -->
         <div id="movie-header" class="text-center noDisplay">
-            <h3><strong>Select a card to reveal your perfet movie!</strong></h3>
+            <h3><strong>Select any card to reveal your perfect movie!</strong></h3>
         </div>
         <section id="movie-grid" class="grid-container noDisplay">
             <div class="grid-x grid-margin-x small-up-2 medium-up-4 align-spaced width-75">
@@ -178,11 +181,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- <section>
-            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="themoviedb" /> 
-        </section> -->
-
     </main>
 
     <br />
