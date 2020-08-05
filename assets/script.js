@@ -1,50 +1,38 @@
 $(document).ready(function () {
 
     // Define Variables
-    const runtime = document.querySelector("#runtime");
+    // const runtime = document.querySelector("#runtime");
 
-    const ratedR = document.querySelector("#ratedR");
-    const ratedPG13 = document.querySelector("#ratedPG13");
-    const ratedPG = document.querySelector("#ratedPG");
-    const ratedG = document.querySelector("#ratedG");
+    const ratedR = $("#ratedR");
+    const ratedPG13 = $("#ratedPG13");
+    const ratedPG = $("#ratedPG");
+    const ratedG = $("#ratedG");
 
-    const action = document.querySelector("#action");
-    const drama = document.querySelector("#drama");
-    const comedy = document.querySelector("#comedy");
-    const horror = document.querySelector("#horror");
-    const family = document.querySelector("#family");
+    const action = $("#action");
+    const drama = $("#drama");
+    const comedy = $("#comedy");
+    const horror = $("#horror");
+    const family = $("#family");
+    const romance = $("#romance");
 
-    const shuffleBtn = document.querySelector("#shuffleBtn");
-    const pickCardBtn = document.querySelector("#pickCardBtn");
-    const drawAgainBtn = document.querySelector("#drawAgainBtn");
-
-    const runtimeModal = document.querySelector("#runtimeModal");
-    const ratingModal = document.querySelector("#ratingModal");
-    const genreModal = document.querySelector("#genreModal");
-    const closeBtn1 = document.querySelector("#close1");
-    const closeBtn2 = document.querySelector("#close2");
-    const closeBtn3 = document.querySelector("#close3");
-
-    const movieHeader = document.querySelector("#movie-header");
-    const movieGrid = document.querySelector("#movie-grid");
     let cardid;
 
     // Shuffles the deck of cards
-    shuffleBtn.onclick = function () {
-        shuffleBtn.style.display = "none";
-        pickCardBtn.style.display = "block";
+    $("#shuffleBtn").on("click", function () {
+        $("#shuffleBtn").hide();
+        $("#pickCardBtn").show();
         // Showing 3 ways to achieve same result
         $("#runtimeBlock").show();
-        $("#ratingBlock").css("display", "block");
+        $("#ratingBlock").show();
         $("#genreBlock").attr("class", "fieldset center-icons");
-    }
-    drawAgainBtn.onclick = function (){
+    });
+    $("#drawAgainBtn").on("click", function (){
         
         //drawAgainBtn.style.display = "none";
         //make an if statement to show # cards = 0 and then shuffle again
         //enable click
         drawAgain();
-    }
+    });
 
     //Allows user to only choose 1 rating
     // Cited:   https://stackoverflow.com/questions/9709209/html-select-only-one-checkbox-in-a-group
@@ -57,17 +45,17 @@ $(document).ready(function () {
     });
 
     // Validate Rating & Genre Selection
-    pickCardBtn.onclick = function () {
+    $("#pickCardBtn").on("click", function () {
         console.log("do you work");
-        let runtimeLength = document.querySelector("#runtime").value;
+        let runtimeLength = $("#runtime").val();
         if (runtimeLength < 90 || runtimeLength > 240 || isNaN(runtimeLength)) {
-            runtimeModal.style.display = "block";
-        } else if (!ratedR.checked && !ratedPG13.checked && !ratedPG.checked && !ratedG.checked) {
-            ratingModal.style.display = "block";
-        } else if (!action.checked && !drama.checked && !comedy.checked && !horror.checked && !family.checked) {
-            genreModal.style.display = "block";
+            $("#runtimeModal").show();
+        } else if (!ratedR.prop("checked") && !ratedPG13.prop("checked") && !ratedPG.prop("checked") && !ratedG.prop("checked")) {
+            $("#ratingModal").show();
+        } else if (!action.prop("checked") && !drama.prop("checked") && !comedy.prop("checked") && !horror.prop("checked") && !family.prop("checked") && !romance.prop("checked")) {
+            $("#genreModal").show();
         } else shuffleCards();
-    };
+    });
 
     $(document).on("click", '#moviePoster', function (event) {
         event.preventDefault();
@@ -80,15 +68,15 @@ $(document).ready(function () {
     })
 
     // When the user clicks on either close button (x), close the modal
-    closeBtn1.onclick = function () {
-        runtimeModal.style.display = "none";
-    }
-    closeBtn2.onclick = function () {
-        ratingModal.style.display = "none";
-    }
-    closeBtn3.onclick = function () {
-        genreModal.style.display = "none";
-    }
+    $("#close1").on("click", function () {
+        $("#runtimeModal").hide();
+    });
+    $("#close2").on("click", function () {
+        $("#ratingModal").hide();
+    });
+    $("#close3").on("click", function () {
+        $("#genreModal").hide();
+    });
 
     // Main function to create movie selection
     // 
@@ -110,7 +98,7 @@ $(document).ready(function () {
 
                 // Draw a Card API
                 $.ajax({
-                    url: "https://deckofcardsapi.com/api/deck/" + cardid + "/draw/?count=4",
+                    url: `https://deckofcardsapi.com/api/deck/${cardid}/draw/?count=4`,
                     method: "GET"
                 })
 
@@ -121,10 +109,10 @@ $(document).ready(function () {
                             _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
                             choice++
                         })
-                        pickCardBtn.style.display = "none";
-                        drawAgainBtn.style.display = "block";
-                        movieHeader.style.display = "block";
-                        movieGrid.style.display = "block";
+                        $("#pickCardBtn").hide();
+                        $("#drawAgainBtn").show();
+                        $("movie-header").show();
+                        $("#movie-grid").show();
                     })
 
             })
@@ -143,38 +131,47 @@ $(document).ready(function () {
                 // console.log(drawcard)
                 cardHolder.each(function (choice) {
                     const _this = $(this);
-                    _this.find("#moviePoster").attr("src", drawcard.cards[choice].image);
+                    _this.find("#moviePoster").attr("src", drawcard.cards[choice].image).addClass("animate__animated animate__flip");
                     choice++
                 })
             })
     }
+
+    let randomArray = ["popularity.desc", "revenue.desc", "release_date.desc", "vote_count.desc", "vote_average.desc", "primary_release_date.desc", "original_title.desc", "release_date.asc", "revenue.asc", "vote_average.asc", "vote_count.asc", "primary_release_date.asc", "original_title.asc"];
+    let sortByIndex = 0;
 
     function runMovieSelection() {
         
         // build queryURL
         let apiKey = "8ae6662de0624eaf409751a739208381";
 
-        let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US`;
+        let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&sort_by=${randomArray[sortByIndex]}`;
+        if (sortByIndex == randomArray.length-1) {
+            sortByIndex=0;
+        } else {
+            sortByIndex++;
+        };
+
 
 
         let certifications = "";
         
         // build the ratings section of the queryURL
         $(".certifications").each(function (rating) {
-            if (ratedR.checked) {
+            if (ratedR.prop("checked")) {
                 certifications += "|R"
             }
-            if (ratedPG13.checked) {
+            if (ratedPG13.prop("checked")) {
                 certifications += "|PG-13"
             }
-            if (ratedPG.checked) {
+            if (ratedPG.prop("checked")) {
                 certifications += "|PG"
             }
-            if (ratedG.checked) {
+            if (ratedG.prop("checked")) {
                 certifications += "|G"
             }
             console.log(certifications);
-            rating++
+            rating++;
         })
         
         //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
@@ -182,24 +179,27 @@ $(document).ready(function () {
         let genre = "";
         // build the genre section of the queryURL
         $(".genre-selection").each(function (type) {
-            if (action.checked) {
+            if (action.prop("checked")) {
                 genre += "|28"
             }
-            if (drama.checked) {
+            if (drama.prop("checked")) {
                 genre += "|18"
             }
-            if (comedy.checked) {
+            if (comedy.prop("checked")) {
                 genre += "|35"
             }
-            if (horror.checked) {
+            if (horror.prop("checked")) {
                 genre += "|27"
             }
-            if (family.checked) {
+            if (family.prop("checked")) {
                 genre += "|10751"
+            }
+            if (romance.prop("checked")) {
+                genre += "|10749"
             }
             type++
         })
-        queryURL += "&certification=" + certifications.slice(1) + "&with_genres=" + genre.slice(1) + "&with_runtime.lte=" + runtime.value;
+        queryURL += "&certification=" + certifications.slice(1) + "&with_genres=" + genre.slice(1) + "&with_runtime.lte=" + parseInt(runtime.value);
         console.log(queryURL);
         // Call the movie API with user input
         $.ajax({
@@ -236,16 +236,10 @@ $(document).ready(function () {
                     //$('.card-holder').each(function (poster) {
                     let usaRating;
                     let runTime;
-                    $(childElm).find('#moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster);
+                    $(childElm).find('#moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster).addClass("animate__animated animate__flip");
                     $(childElm).find(".summary").text(movieBlurb);
                     $(childElm).find(".title").text(movieTitle);
-                        //poster++;
-                    //})
-
-                    //let movieTitle = $('<h4>').text(moviedata.results[choice].title);
-
-                    //let movieSummary = $('<pMovie Summary: >').text(moviedata.results[choice].overview);
-
+                    
                     // New call to movie API to get rating and runtime
                     $.ajax({
                         url: ratingURL,
@@ -274,7 +268,6 @@ $(document).ready(function () {
                             };
                             $(childElm).find(".length").text(runTime);
                             $(childElm).find(".rating").text(usaRating);
-                            //displayFilm();
                         });
 
                 });
@@ -283,19 +276,7 @@ $(document).ready(function () {
     
         });
     }
-    function displayFilm() {
-        
-
-        $('.description').each(function(choice) {
-
-            
-            let runTime = $('<pRuntime: >').text(rating.runtime);
-            let movieRating = $('<pRating: >').text(usaRating);
-            $('.description').append(movieTitle, movieSummary, runTime, movieRating);
-            choice++;
-        })
-        
-    }
+    
     // attach the results to movie cards
 
     // use moviedata.title for a title
