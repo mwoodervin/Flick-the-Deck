@@ -26,8 +26,8 @@ $(document).ready(function () {
         $("#ratingBlock").show();
         $("#genreBlock").attr("class", "fieldset center-icons");
     });
-    $("#drawAgainBtn").on("click", function (){
-        
+    $("#drawAgainBtn").on("click", function () {
+
         //drawAgainBtn.style.display = "none";
         //make an if statement to show # cards = 0 and then shuffle again
         //enable click
@@ -128,11 +128,19 @@ $(document).ready(function () {
         })
             .then(function (drawcard) {
                 console.log(drawcard)
-                cardHolder.each(function (choice) {
-                    const _this = $(this);
-                    _this.find(".dontClick").attr("src", drawcard.cards[choice].image).addClass("animate__animated animate__flip moviePoster").removeClass("dontClick");
-                    choice++
-                })
+                if (drawcard.remaining > 0) {
+                    cardHolder.each(function (choice) {
+                        const _this = $(this);
+                        _this.find(".dontClick").attr("src", drawcard.cards[choice].image).addClass("animate__animated animate__flip moviePoster").removeClass("dontClick");
+                        choice++
+                    })
+                    
+                }
+                else {
+                    $(".dontClick").hide();
+                    $("#drawAgainBtn").addClass("alert white").removeClass("warning").text("Go for a walk!");
+                    $(".moviePoster").hide();
+                }
             })
     }
 
@@ -140,13 +148,13 @@ $(document).ready(function () {
     let sortByIndex = 0;
 
     function runMovieSelection() {
-        
+
         // build queryURL
         let apiKey = "8ae6662de0624eaf409751a739208381";
 
         let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&sort_by=${randomArray[sortByIndex]}`;
-        if (sortByIndex == randomArray.length-1) {
-            sortByIndex=0;
+        if (sortByIndex == randomArray.length - 1) {
+            sortByIndex = 0;
         } else {
             sortByIndex++;
         };
@@ -154,7 +162,7 @@ $(document).ready(function () {
 
 
         let certifications = "";
-        
+
         // build the ratings section of the queryURL
         $(".certifications").each(function (rating) {
             if (ratedR.prop("checked")) {
@@ -172,9 +180,9 @@ $(document).ready(function () {
             console.log(certifications);
             rating++;
         })
-        
+
         //if (elem.attr("value")) queryURL += `${elem.attr("name")}=${elem.attr("value")}`;
-        
+
         let genre = "";
         // build the genre section of the queryURL
         $(".genre-selection").each(function (type) {
@@ -210,14 +218,14 @@ $(document).ready(function () {
                 console.log(moviedata);
                 // This loop grabs top 4 movies in the list - they are ranked by popularity, so this takes top 4 most-popular movies meeting criteria
                 //for (i = 0; i < 4; i++) {
-                    cardHolder.each(function (i, childElm) {
+                cardHolder.each(function (i, childElm) {
 
                     // Set variable for title
                     let movieTitle = moviedata.results[i].title;
-                    
+
                     // Set variable for movie blurb
                     let movieBlurb = moviedata.results[i].overview;
-                    
+
                     // Set variable for title
                     let moviePoster = moviedata.results[i].poster_path;
 
@@ -235,7 +243,12 @@ $(document).ready(function () {
                     //$('.card-holder').each(function (poster) {
                     let usaRating;
                     let runTime;
-                    $(childElm).find('.moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster).addClass("animate__animated animate__flip dontClick").removeClass("moviePoster");
+                    if (!moviePoster){
+                        $(childElm).find('.moviePoster').attr("src", 'https://www.virginmediastore.com/media/tile-placeholder-poster.2769cb5f.png').addClass("animate__animated animate__flip dontClick").removeClass("moviePoster");
+                    } else {
+                        $(childElm).find('.moviePoster').attr("src", 'https://image.tmdb.org/t/p/w500' + moviePoster).addClass("animate__animated animate__flip dontClick").removeClass("moviePoster");
+
+                    }
                     $(childElm).find(".summary").text(movieBlurb);
                     $(childElm).find(".title").text(movieTitle);
 
@@ -243,7 +256,7 @@ $(document).ready(function () {
                     $.ajax({
                         url: ratingURL,
                         method: "GET"
-                        })
+                    })
                         .then(function (ratingdata) {
                             // Console.log runtime - this can be removed later
                             console.log(ratingdata.runtime);
@@ -259,23 +272,33 @@ $(document).ready(function () {
 
                                     // Set variable for rating
                                     usaRating = returnData[i].release_dates[0].certification;
-                                    
+
                                     // Console.log rating
                                     console.log(usaRating);
                                 }
                                 // else {usaRating = "rating not available"}
                             };
-                            $(childElm).find(".length").text(runTime);
-                            $(childElm).find(".rating").text(usaRating);
+                            if (runTime == 0 || !runTime){
+                                $(childElm).find(".length").text("Not Provided");
+                            } else{
+                                $(childElm).find(".length").text(runTime);
+                            }
+
+                            if (usaRating == 0 || !usaRating){
+                                $(childElm).find(".rating").text("Not Provided");
+                            }
+                            else {
+                                $(childElm).find(".rating").text(usaRating);
+                            }
                         });
 
                 });
 
-            // });
-    
-        });
+                // });
+
+            });
     }
-    
+
     // attach the results to movie cards
 
     // use moviedata.title for a title
