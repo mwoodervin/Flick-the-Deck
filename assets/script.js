@@ -109,7 +109,7 @@ $(document).ready(function () {
                         })
                         $("#pickCardBtn").hide();
                         $("#drawAgainBtn").show();
-                        $("movie-header").show();
+                        $("#movie-header").show();
                         $("#movie-grid").show();
                     })
 
