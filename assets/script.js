@@ -60,6 +60,8 @@ $(document).ready(function () {
         $(".showLength").css("display", "block");
         $(".title").css("display", "block");
         $(".summary").css("display", "block");
+        $("#movie-header").hide();
+
     });
 
     // When the user clicks on either close button (x), close the modal
@@ -125,6 +127,7 @@ $(document).ready(function () {
                     $("#drawAgainBtn").addClass("alert white").removeClass("warning").text("Go for a walk!");
                     $(".moviePoster").hide();
                 }
+                $("#movie-header").show();
             });
     }
 
