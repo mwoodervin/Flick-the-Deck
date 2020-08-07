@@ -120,14 +120,15 @@ $(document).ready(function () {
                     cardHolder.each(function (choice) {
                         const _this = $(this);
                         _this.find(".dontClick").attr("src", drawcard.cards[choice].image).addClass("animate__animated animate__flip moviePoster").removeClass("dontClick");
+                        $("#movie-header").show();
                         choice++;
                     });
                 } else {
                     $(".dontClick").hide();
-                    $("#drawAgainBtn").addClass("alert white").removeClass("warning").text("Go for a walk!");
+                    $("#drawAgainBtn").addClass("alert white").removeClass("warning").text("GO FOR A WALK!");
                     $(".moviePoster").hide();
+                    $("#movie-header").hide();
                 }
-                $("#movie-header").show();
             });
     }
 
