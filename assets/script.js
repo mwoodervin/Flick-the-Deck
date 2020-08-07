@@ -152,7 +152,7 @@ $(document).ready(function () {
         // build queryURL
         let apiKey = "8ae6662de0624eaf409751a739208381";
 
-        let queryURL = `http://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&sort_by=${randomArray[sortByIndex]}`;
+        let queryURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&sort_by=${randomArray[sortByIndex]}`;
         if (sortByIndex == randomArray.length - 1) {
             sortByIndex = 0;
         } else {
