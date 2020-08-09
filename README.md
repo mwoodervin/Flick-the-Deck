@@ -11,7 +11,7 @@ https://mwoodervin.github.io/Flick-the-Deck/
 
 ____________________________________________
 ## User Story
-
+```
 AS a movie watcher
 I WANT a simpler way to pick a movie
 SO THAT I can spend more time relaxing and watching than scanning and selecting
@@ -23,7 +23,7 @@ IF I don't like any of those four options
 THEN I can draw again up to 12 more times and will be offered 48 more cards with 48 more movie selections behind them
 EACH draw presents the user with the top four movies meeting those criteria sorted according to different criteria including popularity in theaters, revenue, release date and vote-count on the MovieDB website.
 IF I reach the end of the deck and have not found a movie I want to watch, the application will suggest another activity
-
+```
 _____________________________________________
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/65414966/89733317-aaf2bf00-da22-11ea-81fc-2b3a120a5357.png)
