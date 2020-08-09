@@ -125,7 +125,7 @@ $(document).ready(function () {
                     });
                 } else {
                     $(".dontClick").hide();
-                    $("#drawAgainBtn").addClass("alert white").removeClass("warning").text("GO FOR A WALK!");
+                    $("#drawAgainBtn").addClass("alert white").removeClass("warning").text("READ A BOOK OR GO FOR A WALK!");
                     $(".moviePoster").hide();
                     $("#movie-header").hide();
                 }
