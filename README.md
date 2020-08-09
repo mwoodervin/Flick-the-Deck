@@ -42,6 +42,6 @@ _____________________________________________
 Future expansion of this application will include features such as
 - the ability to link from a movie poster on the site to a movie preview and options for watching
 - the ability to flip one card at a time when revealing movie choices
-- linking to a paid movie API - our current source has several receognized glitches including inaccurate   ratings and runtimes for moview. 
+- linking to a paid movie API - our current source has several receognized glitches including inaccurate   ratings and runtimes for movies. 
 
 
