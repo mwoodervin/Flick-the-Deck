@@ -44,4 +44,5 @@ Future expansion of this application will include features such as
 - the ability to flip one card at a time when revealing movie choices
 - linking to a paid movie API - our current source has several receognized glitches including inaccurate   ratings and runtimes for movies. 
 
-
+## Licence
+[![license information](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mwoodervin/Code-Quiz/blob/master/LICENSE)
