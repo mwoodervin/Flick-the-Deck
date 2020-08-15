@@ -45,4 +45,4 @@ Future expansion of this application will include features such as
 - linking to a paid movie API - our current source has several receognized glitches including inaccurate   ratings and runtimes for movies. 
 
 ## Licence
-[![license information](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mwoodervin/Code-Quiz/blob/master/LICENSE)
+[![license information](https://img.shields.io/badge/license-MIT-blue)](https://github.com/mwoodervin/Flick-the-Deck/blob/master/LICENSE)
